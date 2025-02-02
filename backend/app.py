@@ -1,104 +1,3 @@
-# # from flask import Flask, request, jsonify
-# # from flask_sqlalchemy import SQLAlchemy
-# # from models import db, FoodItem
-
-# # app = Flask(__name__)
-# # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///fooditems.db'  # or PostgreSQL URL
-# # db.init_app(app)
-
-# # # Create food item
-# # @app.route('/api/food', methods=['POST'])
-# # def add_food():
-# #     data = request.get_json()
-# #     new_food = FoodItem(
-# #         name=data['name'],
-# #         description=data['description'],
-# #         price=data['price'],
-# #         image_url=data['image_url']
-# #     )
-# #     db.session.add(new_food)
-# #     db.session.commit()
-# #     return jsonify({'message': 'Food item added successfully!'}), 201
-
-# # # Edit food item
-# # @app.route('/api/food/<int:id>', methods=['PUT'])
-# # def edit_food(id):
-# #     data = request.get_json()
-# #     food = FoodItem.query.get(id)
-# #     if not food:
-# #         return jsonify({'message': 'Food item not found'}), 404
-    
-# #     food.name = data['name']
-# #     food.description = data['description']
-# #     food.price = data['price']
-# #     food.image_url = data['image_url']
-# #     db.session.commit()
-
-# #     return jsonify({'message': 'Food item updated successfully!'})
-
-# # # Delete food item
-# # @app.route('/api/food/<int:id>', methods=['DELETE'])
-# # def delete_food(id):
-# #     food = FoodItem.query.get(id)
-# #     if not food:
-# #         return jsonify({'message': 'Food item not found'}), 404
-    
-# #     db.session.delete(food)
-# #     db.session.commit()
-    
-# #     return jsonify({'message': 'Food item deleted successfully!'})
-
-# # if __name__ == '__main__':
-# #     app.run(debug=True)
-
-
-# from flask import Flask, jsonify, request
-
-# app = Flask(__name__)
-
-# # Sample food items data (you could replace this with a database)
-# food_items = [
-#     {"id": 1, "name": "Pizza", "price": 10},
-#     {"id": 2, "name": "Burger", "price": 5},
-#     {"id": 3, "name": "Pasta", "price": 7}
-# ]
-
-# # Get all food items
-# @app.route('/api/food-items', methods=['GET'])
-# def get_food_items():
-#     return jsonify(food_items)
-
-# # Add a new food item
-# @app.route('/api/food-items', methods=['POST'])
-# def add_food_item():
-#     new_item = request.get_json()
-#     new_item["id"] = len(food_items) + 1  # Automatically generate an ID
-#     food_items.append(new_item)
-#     return jsonify(new_item), 201
-
-# # Edit an existing food item
-# @app.route('/api/food-items/<int:item_id>', methods=['PUT'])
-# def update_food_item(item_id):
-#     item = next((food for food in food_items if food["id"] == item_id), None)
-#     if not item:
-#         return jsonify({"message": "Item not found"}), 404
-    
-#     updated_item = request.get_json()
-#     item.update(updated_item)
-#     return jsonify(item)
-
-# # Delete a food item
-# @app.route('/api/food-items/<int:item_id>', methods=['DELETE'])
-# def delete_food_item(item_id):
-#     global food_items
-#     food_items = [food for food in food_items if food["id"] != item_id]
-#     return jsonify({"message": "Item deleted successfully"}), 200
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
-
-
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -131,6 +30,14 @@ with app.app_context():
 def get_food_items():
     food_items = FoodItem.query.all()
     return jsonify([item.to_dict() for item in food_items]), 200
+
+# Sample route for signup
+@app.route('/api/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    # Assuming you have a logic to handle signup here
+    # You can return a response like:
+    return jsonify({"message": "User signed up successfully!"}), 201
 
 @app.route('/api/food-items', methods=['POST'])
 def add_food_item():
@@ -179,3 +86,4 @@ def delete_food_item(item_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
