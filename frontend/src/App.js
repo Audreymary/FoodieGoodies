@@ -5,6 +5,7 @@ import FoodItems from "./pages/FoodItems";
 import Home from "./pages/Home";
 import Orders from "./pages/Orders";
 
+
 function App() {
   return (
     <div className="App">
@@ -19,9 +20,6 @@ function App() {
 }
 
 export default App;
-
-
-
 
 
 
